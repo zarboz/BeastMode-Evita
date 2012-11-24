@@ -137,9 +137,9 @@ static int synaptics_init_panel(struct synaptics_ts_data *ts);
 static irqreturn_t synaptics_irq_thread(int irq, void *ptr);
 
 #ifdef CONFIG_TOUCHSCREEN_SYNAPTICS_SWEEP2WAKE
-#define BACK_BUTTON		30
-#define HOME_BUTTON		270
-#define MENU_BUTTON		660
+#define BACK_BUTTON		112
+#define HOME_BUTTON		360
+#define MENU_BUTTON		595
 
 int s2w_switch = 0;
 int s2w_temp = 0;
@@ -155,9 +155,9 @@ typedef struct {
 } button;
 
 static button buttons[] = {
-			{30, "BACK"},			
-			{270, "HOME"},
-			{660, "MENU"},
+			{112, "BACK"},			
+			{360, "HOME"},
+			{595, "MENU"},
 };
 				
 int s2w_startbutton = -1;
@@ -2012,7 +2012,7 @@ static void synaptics_ts_finger_func(struct synaptics_ts_data *ts)
 				if ((barrier[0] == true) ||
 				   ((finger_data[i][0] > barrier1) &&
 				    (finger_data[i][0] < barrier2) &&
-				    (finger_data[i][1] > 900))) {
+				    (finger_data[i][1] > 1815))) {
 					if ((led_exec_count == true) && (scr_on_touch == false) && (s2w_switch == 2)) {
 // 						pm8058_drvx_led_brightness_set(sweep2wake_leddev, 255);
 						printk(KERN_INFO "[sweep2wake]: activated button backlight.\n");
@@ -2022,10 +2022,10 @@ static void synaptics_ts_finger_func(struct synaptics_ts_data *ts)
 					if ((barrier[1] == true) ||
 					   ((finger_data[i][0] > barrier2) &&
 					    (finger_data[i][0] < barrier3) &&
-					    (finger_data[i][1] > 900))) {
+					    (finger_data[i][1] > 1815))) {
 						barrier[1] = true;
 						if ((finger_data[i][0] > barrier3) &&
-						    (finger_data[i][1] > 900)) {
+						    (finger_data[i][1] > 1815)) {
 							if (exec_count) {
 								printk(KERN_INFO "[sweep2wake]: POWER ON.\n");
 								sweep2wake_pwrtrigger();
@@ -2041,15 +2041,15 @@ static void synaptics_ts_finger_func(struct synaptics_ts_data *ts)
 				if ((barrier[0] == true) ||
 				   ((finger_data[i][0] < barrier4) &&
 			    	    (finger_data[i][0] > barrier3) &&
-				    (finger_data[i][1] > 900))) {
+				    (finger_data[i][1] > 1815))) {
 					barrier[0] = true;
 					if ((barrier[1] == true) ||
 					   ((finger_data[i][0] < barrier3) &&
 					    (finger_data[i][0] > barrier2) &&
-					    (finger_data[i][1] > 900))) {
+					    (finger_data[i][1] > 1815))) {
 						barrier[1] = true;
 						if ((finger_data[i][0] < barrier2) &&
-						    (finger_data[i][1] > 900)) {
+						    (finger_data[i][1] > 1815)) {
 							if (exec_count) {
 								printk(KERN_INFO "[sweep2wake]: POWER OFF.\n");
 								sweep2wake_pwrtrigger();
